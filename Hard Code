@@ -1,0 +1,74 @@
+
+  const int buttonPin = 2;
+  const int RLEDPin = 13;
+  const int BLEDPin = 12;
+  const int GLEDPin = 11;
+  const int YLEDPin = 10;
+  const int R2LEDPin = 9;
+  const int B2LEDPin = 8;
+  const int switchPin = 3;
+  const int sensorPin = 0;
+  int lightCal;
+  int lightVal;
+  
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(switchPin, INPUT);
+  pinMode(RLEDPin, OUTPUT);
+  pinMode(BLEDPin, OUTPUT);
+  pinMode(GLEDPin, OUTPUT);
+  pinMode(YLEDPin, OUTPUT);
+  pinMode(R2LEDPin, OUTPUT);
+  pinMode(B2LEDPin, OUTPUT);
+  lightCal = analogRead(sensorPin);
+}
+
+void loop() {
+  int switchState;
+  int buttonState;
+  lightVal = analogRead(sensorPin);
+  switchState = digitalRead(switchPin);
+  buttonState = digitalRead(buttonPin);
+  if(switchState == HIGH){
+    digitalWrite(GLEDPin, HIGH);
+  }else{
+    if(lightVal < lightCal - 50){
+    digitalWrite(GLEDPin, LOW);
+    digitalWrite(RLEDPin, HIGH);
+    digitalWrite(BLEDPin, HIGH);
+  delay(1000);
+  digitalWrite(GLEDPin, HIGH);
+  digitalWrite(YLEDPin, HIGH);
+  delay(1000);
+  digitalWrite(R2LEDPin, HIGH);
+  digitalWrite(B2LEDPin, HIGH);
+  delay(1000);
+  digitalWrite(RLEDPin, LOW);
+  delay(1000);
+  digitalWrite(BLEDPin, LOW);
+  delay(1000);
+  digitalWrite(GLEDPin, LOW);
+  delay(1000);
+  digitalWrite(YLEDPin, LOW);
+  delay(1000);
+  digitalWrite(R2LEDPin, LOW);
+  delay(1000);
+  digitalWrite(B2LEDPin, LOW);
+    }
+  }
+if(switchState == LOW){
+  digitalWrite(GLEDPin, LOW);
+   
+}else{
+  if(buttonState == LOW){
+  digitalWrite(GLEDPin, LOW);
+  digitalWrite(YLEDPin, HIGH);
+  delay(1000);
+  digitalWrite(YLEDPin, LOW);
+  digitalWrite(R2LEDPin, HIGH);
+  delay(3000); 
+  digitalWrite(R2LEDPin, LOW);
+  digitalWrite(GLEDPin, HIGH); 
+    }
+  }
+}
